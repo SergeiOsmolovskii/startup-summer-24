@@ -1,0 +1,20 @@
+.navigation-list-item .mantine-List-itemLabel,
+.navigation-list-item, .mantine-List-itemWrapper {
+  width: 100%;
+}
+
+.navigation-link {
+  display: block;
+  text-align: left;
+  padding: 10px;
+  color: #000000;
+  text-decoration: none;
+  line-height: 140%;
+}
+
+.navigation-link__active {
+  color: var(--purple-500);
+  font-weight: bold;
+  background-color: var(--purple-200);;
+  border-radius: 8px;
+}
