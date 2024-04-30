@@ -14,8 +14,14 @@ ul {
 :root {
   --purple-100: #F2ECFA;
   --purple-200: #E5D5FA;
+  --purple-400: #BD93F7;
   --purple-500: #9854F6;
+  --purple-600: #541F9D;
   --main-gray: #ACADB9;
+  --gray-100: #F5F5F6;
+  --gray-200: #EAEBED;
+  --gray-500: #ACADB9;
+  --gray-600: #7B7C88;
 }
 
 .container {

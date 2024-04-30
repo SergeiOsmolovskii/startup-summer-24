@@ -1,0 +1,30 @@
+.search-container .mantine-UnstyledButton-root {
+  margin: 0px 12px;
+  background-color: var(--purple-500);
+}
+
+.search-container .mantine-Input-input {
+  padding-left: 35px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  caret-color: var(--purple-500);
+  border-color: var(--gray-200);
+}
+
+.search-container .mantine-Input-input:hover {
+  border-color: var(--purple-500);
+  cursor: pointer;
+}
+
+.search-container .mantine-Input-input:focus {
+  border-color: var(--purple-500);
+}
+
+.search-container .mantine-UnstyledButton-root:hover {
+  background-color: var(--purple-400);
+}
+
+.search-container .mantine-UnstyledButton-root:active {
+  background-color: var(--purple-600);
+}
