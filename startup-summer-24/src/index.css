@@ -20,8 +20,10 @@ ul {
   --main-gray: #ACADB9;
   --gray-100: #F5F5F6;
   --gray-200: #EAEBED;
+  --gray-300: #D5D6DC;
   --gray-500: #ACADB9;
   --gray-600: #7B7C88;
+  --yellow: #FAB005;
 }
 
 .container {

@@ -30,7 +30,7 @@ export const FiltersPanel = () => {
 
   return (
 
-    <Box className="filters-container">
+    <Box className="filters-container" mb={24}>
       <Group mb={14} wrap="no-wrap" align="flex-end">
         <Select
           flex={1}
