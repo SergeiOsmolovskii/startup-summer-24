@@ -1,34 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Box } from "@mantine/core";
+import { Routes, Route } from "react-router-dom";
+import { AsideNavigationPanel } from "./components/AsideNavigationPanel";
+import { MainPage } from "./pages/MainPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { RatedPage } from "./pages/RatedPage";
+import { getGenres } from "./api/api";
+
+import "@mantine/core/styles.css";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [genres, setGenres] = useState(null);
+
+  useEffect(() => {
+    if (!localStorage.getItem("genres")) {
+      const fetchData = async () => {
+        const genresData = await getGenres();
+        setGenres(genresData);
+        localStorage.setItem("genres", JSON.stringify(genresData));
+      };
+      fetchData();
+    } else {
+      const genresData = JSON.parse(localStorage.getItem("genres"));
+      setGenres(genresData);
+    }
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Box w="100%" className="container">
+      <AsideNavigationPanel />
+      <Box component="aside" mih="100vh" p={"40 90"} bg="var(--gray-100)" flex={1}>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/rated" element={<RatedPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Box>
+    </Box>
   )
 }
 

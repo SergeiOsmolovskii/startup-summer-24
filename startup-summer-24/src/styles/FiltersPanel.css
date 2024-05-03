@@ -1,0 +1,56 @@
+.filters-container .mantine-InputWrapper-label {
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 140%;
+}
+
+.filters-container .mantine-Input-input {
+  height: 42px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+  caret-color: var(--purple-500);
+  line-height: 20;
+}
+
+.filters-container .mantine-Input-input:hover {
+  border-color: var(--purple-500);
+  cursor: pointer;
+}
+
+.filters-container .mantine-Input-input:focus {
+  border-color: var(--purple-500);
+}
+
+.filters-container .mantine-Select-option:active {
+  color: #ffffff;
+  background-color: var(--purple-500);
+  border-radius: 8px;
+}
+
+.mantine-Select-option:hover {
+  background-color: var(--purple-500) !important;
+  border-radius: 8px;
+  color: #ffffff;
+}
+
+.mantine-Select-option[aria-selected="true"] {
+  color: #ffffff;
+  background-color: var(--purple-500);
+  border-radius: 8px;
+}
+
+.filters-container .mantine-Select-input:hover,
+.filters-container .mantine-Select-input:focus {
+  border-color: var(--purple-500);
+}
+
+.mantine-ScrollArea-viewport {
+  padding: 0 !important
+}
+
+.filters-container .dropdown-up-icon-small {
+  cursor: pointer;
+}
