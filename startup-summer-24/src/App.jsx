@@ -6,7 +6,7 @@ import { MainPage } from "./pages/MainPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { RatedPage } from "./pages/RatedPage";
 import { getGenres } from "./api/api";
-
+import { Movie } from "./components/Movie";
 import "@mantine/core/styles.css";
 import "./App.css";
 
@@ -34,7 +34,10 @@ function App() {
       <Box component="aside" mih="100vh" p={"40 90"} bg="var(--gray-100)" flex={1}>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/movies" element={<MainPage />} />
           <Route path="/rated" element={<RatedPage />} />
+          <Route path="/movies/:id" element={<Movie />} />
+          <Route path="/404" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Box>
