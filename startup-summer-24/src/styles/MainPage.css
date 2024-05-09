@@ -1,0 +1,4 @@
+.pagination .mantine-Pagination-control[data-active=true] {
+  background-color: var(--purple-500);
+  border: none;
+}

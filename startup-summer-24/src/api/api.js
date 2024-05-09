@@ -1,9 +1,12 @@
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-export const getMovies = async () => {
+export const getMovies = async (params) => {
   try {
-    const response = await fetch(`${BASE_URL}/discover/movie`, {
+    const url = new URL(`${BASE_URL}/discover/movie`);
+    const searchParams = new URLSearchParams(params);
+    url.search = searchParams.toString();
+    const response = await fetch(url, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${API_KEY}`
