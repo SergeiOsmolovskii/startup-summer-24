@@ -7,7 +7,7 @@ import "../styles/MainPage.css";
 import { FiltersPanel } from "../components/FiltersPanel";
 import { getMovies } from "../api/api";
 
-const VITE_PAGINATION_PAGES = import.meta.env.VITE_MOVIES_PER_RATED_PAGE;
+const VITE_PAGINATION_PAGES = import.meta.env.VITE_PAGINATION_PAGES;
 
 export const MainPage = () => {
   const navigate = useNavigate();
