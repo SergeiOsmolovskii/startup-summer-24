@@ -1,21 +1,27 @@
-import { Card, Image, Group, Stack, Text } from "@mantine/core";
+import { Card, Image, Group, Stack, Text, Button } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import Star from "../assets/star.svg?react";
 import noPoster from "../assets/no-poster.png";
 import { formatPopularity } from "../utils/utils";
+import "../styles/MovieCard.css";
+import { useState, useEffect } from "react";
 
 const IMAGES_BASE_URL = import.meta.env.VITE_IMAGES_BASE_URL;
 
-export const MovieCard = ({ movie, allGenres }) => {
+export const MovieCard = ({ movie, allGenres, setSelectedMovie, rating }) => {
+  const [currentRating, setCurrentRating] = useState(null);
+  const navigate = useNavigate();
   const poster = movie.poster_path ? `${IMAGES_BASE_URL}${movie.poster_path}` : noPoster;
   const popularity = formatPopularity(movie.vote_count);
-
   const genres = allGenres.genres
     .filter(item => movie.genre_ids.includes(item.id))
     .map(item => item.name)
     .join(', ');
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    (!currentRating && movie.rating) ? setCurrentRating(movie.rating) : setCurrentRating(rating);
+  }, [rating]);
+
   const goToMovie = () => {
     navigate(`/movies/${movie.id}`);
   };
@@ -46,9 +52,21 @@ export const MovieCard = ({ movie, allGenres }) => {
           </Group>
         </Stack>
 
-        <Group align="flex-start" flex="0 0 auto">
-          <Star color="var(--gray-300)" />
+        <Group align="flex-start" flex="0 0 auto" gap={4}>
+          <Button
+            className="rating"
+            variant="transparent"
+            leftSection={<Star color={currentRating ? "var(--purple-500)" : "var(--gray-300)"} />}
+            p={0}
+            fz={16}
+            fw={600}
+            color="#000000"
+            onClick={() => setSelectedMovie(movie)}
+          >
+            {currentRating ? currentRating : null}
+          </Button>
         </Group>
+
       </Group>
     </Card>
   )

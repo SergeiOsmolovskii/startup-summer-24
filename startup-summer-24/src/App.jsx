@@ -28,6 +28,12 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!localStorage.getItem("rated")) {
+      localStorage.setItem("rated", "{}");
+    };
+  }, []);
+
   return (
     <Box w="100%" className="container">
       <AsideNavigationPanel />

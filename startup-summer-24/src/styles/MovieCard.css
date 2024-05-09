@@ -1,0 +1,18 @@
+.rating .mantine-Button-section {
+  margin-right: 4px;
+}
+
+.rating-modal .mantine-Modal-header {
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.rating-modal .mantine-Modal-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.rating-modal .mantine-Rating-root {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
