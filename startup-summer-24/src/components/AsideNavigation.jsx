@@ -9,7 +9,7 @@ export const AsideNavigation = () => {
     <Box component="nav">
       <List listStyleType="none" >
         <List.Item w="100%" mb={16} className="navigation-list-item">
-          <NavLink to="/" className={setActiveLink}>Movies</NavLink>
+          <NavLink to="/movies" className={setActiveLink}>Movies</NavLink>
         </List.Item>
         <List.Item w="100%" mb={16} className="navigation-list-item">
           <NavLink to="/rated" className={setActiveLink}>Rated movies</NavLink>

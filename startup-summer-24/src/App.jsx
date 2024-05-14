@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mantine/core";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { AsideNavigationPanel } from "./components/AsideNavigationPanel";
 import { MainPage } from "./pages/MainPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
@@ -28,12 +28,18 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!localStorage.getItem("rated")) {
+      localStorage.setItem("rated", "{}");
+    };
+  }, []);
+
   return (
     <Box w="100%" className="container">
       <AsideNavigationPanel />
       <Box component="aside" mih="100vh" p={"40 90"} bg="var(--gray-100)" flex={1}>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<Navigate to="/movies" />} />
           <Route path="/movies" element={<MainPage />} />
           <Route path="/rated" element={<RatedPage />} />
           <Route path="/movies/:id" element={<Movie />} />
