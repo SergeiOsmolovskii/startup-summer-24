@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Box, Group, Text, Loader, Pagination } from "@mantine/core";
-import { SearchPanel } from "../components/SearchPanel";
 import { MoviesPanel } from "../components/MoviesPanel";
 import "../styles/MainPage.css";
 import { FiltersPanel } from "../components/FiltersPanel";
@@ -10,45 +9,44 @@ import { getMovies } from "../api/api";
 const VITE_PAGINATION_PAGES = import.meta.env.VITE_PAGINATION_PAGES;
 
 export const MainPage = () => {
-  const navigate = useNavigate();
-  const searchParams = new URLSearchParams(window.location.search);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [filtersParams, setFiltersParams] = useState(null);
+
   const [movies, setMovies] = useState(null);
-  const [page, setPage] = useState(parseInt(searchParams.get('page')) || 1);
+  const [page, setPage] = useState(searchParams.get("page") || 1);
+
+  const fetchData = async () => {
+    const ratings = JSON.parse(localStorage.getItem("rated")) || {};
+    const moviesData = await getMovies(`${searchParams.toString()}`);
+    moviesData.results.forEach(movie => {
+      const savedRating = ratings[movie.id];
+      if (savedRating) {
+        movie.rating = savedRating.rating;
+      }
+    });
+    setMovies(moviesData);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const ratings = JSON.parse(localStorage.getItem("rated")) || {};
-      const moviesData = await getMovies(`page=${page}`);
-      moviesData.results.forEach(movie => {
-        const savedRating = ratings[movie.id];
-        if (savedRating) {
-          movie.rating = savedRating.rating;
-        }
-      });
-      setMovies(moviesData);
-    };
+    console.log(filtersParams);
     fetchData();
-
-    if (page > 500) {
-      setPage(1);
-      navigate(`/movies/?page=1`);
-    } else {
-      navigate(`/movies/?page=${page}`);
-    }
-  }, [page, navigate]);
+  }, [filtersParams, page]);
 
   const handlePageChange = (newPage) => {
-    setPage(newPage);
-    navigate(`/movies/?page=${newPage}`);
+    setPage(newPage)
+    setSearchParams(searchParams => {
+      searchParams.set("page", newPage);
+      return searchParams;
+    });
   };
 
   return (
     <Box component="main" mih="100vh">
       <Group display="flex" justify="space-between" mb={33}>
         <Text fz={32} fw="bold" lh="140%">Movies</Text>
-        <SearchPanel />
       </Group>
-      <FiltersPanel />
+      <FiltersPanel setFiltersParams={setFiltersParams} setPage={setPage} />
       <Box align="center" mb={24}>
         {movies ? <MoviesPanel movies={movies.results} /> : <Loader size={50} color="var(--purple-500)" />}
       </Box>
@@ -56,7 +54,7 @@ export const MainPage = () => {
         movies
           ?
           <Group justify="flex-end">
-            <Pagination className="pagination" value={page} total={VITE_PAGINATION_PAGES} onChange={handlePageChange} />
+            <Pagination className="pagination" value={page} total={movies.total_pages < 500 ? movies.total_pages : VITE_PAGINATION_PAGES} onChange={handlePageChange} />
           </Group>
           : null
       }

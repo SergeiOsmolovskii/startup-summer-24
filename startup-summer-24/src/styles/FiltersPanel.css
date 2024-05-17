@@ -1,3 +1,16 @@
+.filters-container .main-filters-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.filters-container .ratings-container .mantine-NumberInput-label {
+  margin: 8px 0px;
+}
+
+.filters-container .reset-filters-container {
+  display: flex;
+}
+
 .filters-container .mantine-InputWrapper-label {
   margin-bottom: 8px;
   font-size: 16px;
@@ -5,8 +18,10 @@
   line-height: 140%;
 }
 
-.filters-container .mantine-Input-input {
-  height: 42px;
+.filters-container .mantine-Input-input,
+.filters-container .mantine-MultiSelect-input {
+  display: flex;
+  min-height: 42px;
   font-family: "Inter", sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -15,35 +30,60 @@
   line-height: 20;
 }
 
+.filters-container .mantine-MultiSelect-input .mantine-MultiSelect-pill {
+  padding-left: 0px;
+  color: #000000;
+  font-size: 14px;
+  line-height: 20;
+  background-color: transparent;
+}
+
+.mantine-MultiSelect-dropdown, .mantine-Select-dropdown {
+  border-radius: 8px !important;
+}
+
+.filters-container .mantine-MultiSelect-input .mantine-MultiSelect-pill:not(:last-of-type)::after {
+  content: ',';
+}
+
+.filters-container .mantine-MultiSelect-input .mantine-Pill-remove {
+  display: none;
+}
+
 .filters-container .mantine-Input-input:hover {
   border-color: var(--purple-500);
   cursor: pointer;
 }
 
-.filters-container .mantine-Input-input:focus {
-  border-color: var(--purple-500);
-}
-
-.filters-container .mantine-Select-option:active {
+.filters-container .mantine-Select-option:active,
+.filters-container .mantine-MultiSelect-option:active {
   color: #ffffff;
   background-color: var(--purple-500);
   border-radius: 8px;
 }
 
-.mantine-Select-option:hover {
-  background-color: var(--purple-500) !important;
+.mantine-Select-option:hover,
+.mantine-MultiSelect-option:hover {
+  background-color: var(--purple-100) !important;
   border-radius: 8px;
-  color: #ffffff;
+  color: #000000;
 }
 
-.mantine-Select-option[aria-selected="true"] {
+.mantine-Select-option[aria-selected="true"],
+.mantine-MultiSelect-option[aria-selected="true"] {
   color: #ffffff;
   background-color: var(--purple-500);
   border-radius: 8px;
 }
 
 .filters-container .mantine-Select-input:hover,
-.filters-container .mantine-Select-input:focus {
+.filters-container .mantine-MultiSelect-input:hover,
+.filters-container .mantine-Select-input:focus,
+.filters-container .mantine-Select-input:focus-within,
+.filters-container .mantine-NumberInput-input:focus,
+.filters-container .mantine-NumberInput-input:focus-within,
+.filters-container .mantine-MultiSelect-input:focus,
+.filters-container .mantine-MultiSelect-input:focus-within  {
   border-color: var(--purple-500);
 }
 

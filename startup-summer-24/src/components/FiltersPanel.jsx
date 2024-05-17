@@ -1,19 +1,29 @@
-import { useState, useRef } from "react";
-import { NumberInput, /* NumberInputHandlers, */ Button, Group, Box, Select, Flex } from "@mantine/core";
+import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from 'react-router-dom';
+import { NumberInput, Button, Group, Box, Select, MultiSelect, Flex } from "@mantine/core";
 import DropdownDownIcon from "../assets/dropdown down.svg?react";
 import DropdownUpIcon from "../assets/dropdown up.svg?react";
 import DropdownDownIconSmall from "../assets/dropdown down-small.svg?react";
 import DropdownUpIconSmall from "../assets/dropdown up-small.svg?react";
-import "../styles/FiltersPanel.css"
+import { getGenres } from "../api/api";
+import { SORT_PARAMS } from "../utils/variables";
+import "../styles/FiltersPanel.css";
 
+export const FiltersPanel = ({ setFiltersParams, setPage }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const updateSearchParams = (params) => {
+    setSearchParams(new URLSearchParams(params));
+  };
 
-export const FiltersPanel = () => {
-
+  const [activeGenreIds, setActiveGenreIds] = useState(searchParams.get("with_genres")?.split(',') || []);
   const [genres, setGenres] = useState(null);
-  const [years, setYears] = useState(null);
-  const [minRating, setMinRating] = useState(null);
-  const [maxRating, setMaxRating] = useState(null);
-  const [sort, setSort] = useState("Most popular");
+  const [activeYear, setActiveYear] = useState(searchParams.get("primary_release_year"));
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: currentYear - 1880 + 1 }, (_, index) => (currentYear - index).toString());
+
+  const [minRating, setMinRating] = useState(searchParams.get("vote_average.gte"));
+  const [maxRating, setMaxRating] = useState(searchParams.get("vote_average.lte"));
+  const [sort, setSort] = useState(searchParams.get("sort_by"));
 
   const [isGenreDropdownClosed, setIsGenreDropdownClosed] = useState(false);
   const [isYearsDropdownClosed, setIsYearsDropdownClosed] = useState(false);
@@ -22,25 +32,60 @@ export const FiltersPanel = () => {
   const ratingFromRef = useRef(null);
   const ratingToRef = useRef(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const allGenres = await getGenres();
+      const formattedGenres = allGenres.genres.map(genre => ({
+        value: genre.id.toString(),
+        label: genre.name
+      }));
+      setGenres(formattedGenres);
+    }
+    fetchData();
+  }, []);
 
-  const tempGenresData = ["Drama", "Comedy", "Animation", "Thriller", "Fantasy",];
-  const tempGenresYears = ["2000", "1998", "1985", "2015", "2022", "2005"];
-  const tempSortData = ["Most Popular", "Least Popular", "Most Rated", "Least Rated", "Most Voted", "Least Voted"];
+  useEffect(() => {
+    const filters = {
+      page: 1,
+      with_genres: activeGenreIds.join(',') || null,
+      primary_release_year: activeYear,
+      "vote_average.gte": minRating,
+      "vote_average.lte": maxRating,
+      sort_by: sort
+    }
+    setPage(1);
+    const filteredFilters = Object.fromEntries(
+      Object.entries(filters).filter(([_, value]) => value !== null)
+    );
 
+    setFiltersParams(filteredFilters);
+    updateSearchParams(filteredFilters);
+  }, [activeGenreIds, activeYear, sort, minRating, maxRating]);
+
+  const resetFilters = () => {
+    setActiveGenreIds([]);
+    setActiveYear(null);
+    setMinRating(null);
+    setMaxRating(null);
+    setSort(null);
+    setPage(1);
+    setFiltersParams("");
+    updateSearchParams("");
+  };
 
   return (
 
     <Box className="filters-container" mb={24}>
-      <Group mb={14} wrap="no-wrap" align="flex-end">
-        <Select
+      <Group className="main-filters-container" mb={14} wrap="no-wrap">
+        <MultiSelect
           flex={1}
           fz={22}
           className="genres-select"
           label="Genres"
-          placeholder="Select genre"
-          data={tempGenresData}
-          value={genres}
-          onChange={setGenres}
+          placeholder={activeGenreIds.length > 0 ? "" : "Select genre"}
+          data={genres}
+          value={activeGenreIds}
+          onChange={setActiveGenreIds}
           maxDropdownHeight={275}
           w="100%"
           radius="md"
@@ -58,9 +103,9 @@ export const FiltersPanel = () => {
           className="year-select"
           label="Release year"
           placeholder="Select release year"
-          data={tempGenresYears}
-          value={years}
-          onChange={setYears}
+          data={years}
+          value={activeYear}
+          onChange={setActiveYear}
           maxDropdownHeight={275}
           w="100%"
           radius="md"
@@ -73,7 +118,7 @@ export const FiltersPanel = () => {
         />
         {/* To fix */}
         <Group gap={15} flex={1}>
-          <Group wrap="no-wrap" align="flex-end">
+          <Group className="ratings-container" wrap="no-wrap" align="flex-end">
             <NumberInput
               label="Ratings"
               className="rating-input"
@@ -115,17 +160,20 @@ export const FiltersPanel = () => {
             />
           </Group>
         </Group>
-        <Button
-          className="reset-filters"
-          variant="transparent"
-          fz={14}
-          p={0}
-          mb={5}
-          color="var(--gray-600)"
-          onClick={() => console.log("Потом обработать")}
-        >
-          Reset filters
-        </Button>
+        <Group className="reset-filters-container" mt={40}>
+          <Button
+            className="reset-filters"
+            variant="transparent"
+            fz={14}
+            p={0}
+            mb={5}
+            color="var(--gray-600)"
+            onClick={resetFilters}
+          >
+            Reset filters
+          </Button>
+        </Group>
+
       </Group>
 
       <Group justify="flex-end">
@@ -134,7 +182,7 @@ export const FiltersPanel = () => {
           className="year-select"
           label="Sort by"
           placeholder="Most popular"
-          data={tempSortData}
+          data={SORT_PARAMS}
           value={sort}
           onChange={setSort}
           maxDropdownHeight={275}
