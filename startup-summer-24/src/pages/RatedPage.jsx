@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Group, Box, Text, Loader, Pagination } from "@mantine/core";
 import { SearchPanel } from "../components/SearchPanel";
 import { MoviesPanel } from "../components/MoviesPanel";
+import { EmptyRated } from "../components/EmptyRated";
+
 const MOVIES_PER_RATED_PAGE = import.meta.env.VITE_MOVIES_PER_RATED_PAGE;
 
 export const RatedPage = () => {
@@ -45,22 +47,28 @@ export const RatedPage = () => {
   };
 
   return (
-    <Box component="main" mih="100vh">
-      <Group display="flex" justify="space-between" mb={33}>
-        <Text fz={32} fw="bold" lh="140%">Rated movies</Text>
-        <SearchPanel />
-      </Group>
+    <Box component="main" h="100%">
 
-      <Box align="center" mb={24}  >
-        {movies ? <MoviesPanel movies={moviesOnPage} removeMovie={removeMovie} /> : <Loader size={50} color="var(--purple-500)" />}
-      </Box>
       {
-        movies
+        (movies.length < 1)
           ?
-          <Group justify="center">
-            <Pagination className="pagination" value={page} total={totalPages} onChange={handlePageChange} />
-          </Group>
-          : null
+          <EmptyRated />
+          :
+          <>
+            <Group display="flex" justify="space-between" mb={33}>
+              <Text fz={32} fw="bold" lh="140%">Rated movies</Text>
+              <SearchPanel />
+            </Group>
+
+            <Box align="center" mb={24}  >
+              {movies ? <MoviesPanel movies={moviesOnPage} removeMovie={removeMovie} /> : <Loader size={50} color="var(--purple-500)" />}
+            </Box>
+            {movies && (
+              <Group justify="center">
+                <Pagination className="pagination" value={page} total={totalPages} onChange={handlePageChange} />
+              </Group>
+            )}
+          </>
       }
     </Box>
   )

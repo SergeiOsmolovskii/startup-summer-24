@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Card, Image, Group, Button, Stack, Text, Divider, Breadcrumbs, Anchor, Modal } from "@mantine/core";
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure } from "@mantine/hooks";
 import { getMovieById, getTrailersById } from "../api/api";
 import { formatPopularity, formatTime, formatDate, formatMoney } from "../utils/utils";
 import { ProductionCompany } from "./ProductionCompany";
@@ -36,7 +36,7 @@ export const Movie = () => {
 
         const combinedData = {
           ...movieData,
-          trailer: movieTrailer.results[0] ? movieTrailer.results[0] : null
+          trailer: movieTrailer.results[0] && movieTrailer.results[0]
         };
 
         setMovie(combinedData);
@@ -118,8 +118,8 @@ export const Movie = () => {
         <Card component="section" p={24} mb={20} radius={12} bg="#ffffff">
           <Group align="stretch" justify="space-between" wrap="no-wrap">
 
-            <Group flex="0 0 auto">
-              <Image w={250} src={poster} />
+            <Group w={250} h={375} gap={0} flex="0 0 auto">
+              <Image className="poster-img" src={poster} />
             </Group>
 
             <Stack align="flex-start" flex="1 1 auto" justify="space-between">
@@ -152,7 +152,7 @@ export const Movie = () => {
                 </Group>
                 <Group wrap="no-wrap" align="flex-start" pt={7}>
                   <Text w={130} p={0} c="var(--gray-600)">Genres</Text>
-                  <Text>{genres}</Text>
+                  <Text lineClamp={1} title={genres}>{genres}</Text>
                 </Group>
               </Stack>
             </Stack>
@@ -168,7 +168,7 @@ export const Movie = () => {
                 color="#000000"
                 onClick={open}
               >
-                {rating ? rating : null}
+                {rating && rating}
               </Button>
 
             </Group>
@@ -176,31 +176,39 @@ export const Movie = () => {
         </Card>
 
         <Card component="section" p={24} radius={12} bg="#ffffff">
-          <Box>
-            <Text component="h3" mb={16} fz={20} fw="bold">Trailer</Text>
-            <Group className="video-container" pos="relative" radius={9}>
-              <iframe className="video" width="100%" src={movie.trailer ? `https://www.youtube.com/embed/${movie.trailer.key}` : ''} title={movie.original_title} allowFullScreen></iframe>
-            </Group>
-          </Box>
+          {movie.trailer && (
+            <>
+              <Box>
+                <Text component="h3" mb={16} fz={20} fw="bold">Trailer</Text>
+                <Group className="video-container" pos="relative" radius={9}>
+                  <iframe className="video" width="100%" src={movie.trailer ? `https://www.youtube.com/embed/${movie.trailer.key}` : ""} title={movie.original_title} allowFullScreen></iframe>
+                </Group>
+              </Box>
+              <Divider size="xs" m="20 0" />
+            </>
+          )}
 
-          <Divider size="xs" m="20 0" />
+          {movie.overview && (
+            <>
+              <Box>
+                <Text component="h3" mb={16} fz={20} fw="bold">Description</Text>
+                <Text component="p" fz={16}>{movie.overview}</Text>
+              </Box>
 
-          <Box>
-            <Text component="h3" mb={16} fz={20} fw="bold">Description</Text>
-            <Text component="p" fz={16}>{movie.overview}</Text>
-          </Box>
+              <Divider size="xs" m="20 0" />
+            </>
+          )}
 
-          <Divider size="xs" m="20 0" />
-
-          <Box>
-            <Text component="h3" mb={16} fz={20} fw="bold">Production</Text>
-            <Stack gap={12}>
-              {movie.production_companies.map((company) => (
-                <ProductionCompany key={company.id} company={company} />
-              ))}
-            </Stack>
-          </Box>
-
+          {movie.production_companies.length > 0 && (
+            <Box>
+              <Text component="h3" mb={16} fz={20} fw="bold">Production</Text>
+              <Stack gap={12}>
+                {movie.production_companies.map((company) => (
+                  <ProductionCompany key={company.id} company={company} />
+                ))}
+              </Stack>
+            </Box>
+          )}
         </Card>
       </Box>
     </>

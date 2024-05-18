@@ -1,0 +1,7 @@
+.save-button:hover {
+  background-color: var(--purple-400);
+}
+
+.remove-button:hover {
+  color: var(--purple-400);
+}

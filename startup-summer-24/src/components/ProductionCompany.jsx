@@ -4,13 +4,14 @@ import "../styles/ProductionCompany.css";
 const IMAGES_BASE_URL = import.meta.env.VITE_IMAGES_BASE_URL;
 
 export const ProductionCompany = ({ company }) => {
-  const logoPath = `${IMAGES_BASE_URL}${company.logo_path}`
+  const logoPath = `${IMAGES_BASE_URL}${company.logo_path}`;
 
   return (
     <Group gap={8}>
-      <Box className={company.logo_path ? "image-container" : null} h={40}>
-        {company.logo_path ?
-          <Image w={40} h={40} fit="contain" src={logoPath} c="red" />
+      <Box className={company.logo_path && "image-container"} h={40}>
+        {company.logo_path
+          ?
+          <Image w={40} h={40} fit="contain" src={logoPath}/>
           :
           <NoCompanyIcon />
         }

@@ -11,6 +11,12 @@
   display: flex;
 }
 
+.reset-filters .mantine-Button-label:hover {
+  color: var(--purple-400);
+}
+
+/* .reset-filters .mantine-Button-label: */
+
 .filters-container .mantine-InputWrapper-label {
   margin-bottom: 8px;
   font-size: 16px;

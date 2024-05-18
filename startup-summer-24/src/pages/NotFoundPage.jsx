@@ -1,4 +1,4 @@
-import { Image, Group, Button, Flex, Stack, Text } from "@mantine/core";
+import { Image, Button, Flex, Stack, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import notFound from "../assets/not-found.png";
 
@@ -8,7 +8,7 @@ export const NotFoundPage = () => {
 
   const navigate = useNavigate();
   const goHomePage = () => {
-    navigate("/");
+    navigate("/movies");
   };
 
   return (

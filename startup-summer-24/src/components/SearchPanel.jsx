@@ -19,7 +19,7 @@ export const SearchPanel = () => {
         radius="md"
         size="48px"
         rightSectionPointerEvents="all"
-        leftSection={<Search size="md"/>}
+        leftSection={<Search size="md" />}
         leftSectionWidth={40}
         rightSectionWidth={110}
         rightSection={
@@ -32,13 +32,11 @@ export const SearchPanel = () => {
             onClick={() => {
               console.log(search);
             }
-          }
-        >
-          Search
-        </Button>
-
-      }
-
+            }
+          >
+            Search
+          </Button>
+        }
       />
     </Box>
 

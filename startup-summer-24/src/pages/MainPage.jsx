@@ -5,6 +5,7 @@ import { MoviesPanel } from "../components/MoviesPanel";
 import "../styles/MainPage.css";
 import { FiltersPanel } from "../components/FiltersPanel";
 import { getMovies } from "../api/api";
+import { NotFoundMovies } from "../components/NotFoundMovies";
 
 const VITE_PAGINATION_PAGES = import.meta.env.VITE_PAGINATION_PAGES;
 
@@ -29,7 +30,6 @@ export const MainPage = () => {
   };
 
   useEffect(() => {
-    console.log(filtersParams);
     fetchData();
   }, [filtersParams, page]);
 
@@ -42,21 +42,27 @@ export const MainPage = () => {
   };
 
   return (
-    <Box component="main" mih="100vh">
+    <Box component="main">
       <Group display="flex" justify="space-between" mb={33}>
         <Text fz={32} fw="bold" lh="140%">Movies</Text>
       </Group>
       <FiltersPanel setFiltersParams={setFiltersParams} setPage={setPage} />
-      <Box align="center" mb={24}>
-        {movies ? <MoviesPanel movies={movies.results} /> : <Loader size={50} color="var(--purple-500)" />}
-      </Box>
+
       {
-        movies
+        ((!!movies?.results.length < 1) && searchParams.size > 1)
           ?
-          <Group justify="flex-end">
-            <Pagination className="pagination" value={page} total={movies.total_pages < 500 ? movies.total_pages : VITE_PAGINATION_PAGES} onChange={handlePageChange} />
-          </Group>
-          : null
+          <NotFoundMovies />
+          :
+          <>
+            <Box align="center" mb={24}>
+              {movies ? <MoviesPanel movies={movies.results} /> : <Loader size={50} color="var(--purple-500)" />}
+            </Box>
+            {movies && (
+              <Group justify="flex-end">
+                <Pagination className="pagination" value={page} total={movies.total_pages < 500 ? movies.total_pages : VITE_PAGINATION_PAGES} onChange={handlePageChange} />
+              </Group>
+            )}
+          </>
       }
     </Box>
   )

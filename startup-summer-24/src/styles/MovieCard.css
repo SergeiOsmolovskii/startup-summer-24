@@ -1,3 +1,12 @@
+.movie-card {
+  flex: 1 0 calc(50% - 8px);
+  max-width: calc(50% - 8px);
+}
+
+.title {
+  cursor: pointer;
+}
+
 .rating .mantine-Button-section {
   margin-right: 4px;
 }

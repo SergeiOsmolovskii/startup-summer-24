@@ -1,4 +1,4 @@
-import { Card, Image, Group, Stack, Text, Button } from "@mantine/core";
+import { Card, Image, Group, Stack, Text, Title , Button } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import Star from "../assets/star.svg?react";
 import noPoster from "../assets/no-poster.png";
@@ -27,7 +27,7 @@ export const MovieCard = ({ movie, allGenres, setSelectedMovie, rating }) => {
   };
 
   return (
-    <Card p={24} radius={12} flex="49%">
+    <Card className="movie-card" p={24} radius={12}>
       <Group align="stretch" justify="space-between" wrap="no-wrap">
 
         <Group flex="0 0 auto">
@@ -36,7 +36,7 @@ export const MovieCard = ({ movie, allGenres, setSelectedMovie, rating }) => {
 
         <Stack align="flex-start" flex="1 1 auto" justify="space-between">
           <Stack align="flex-start" justify="space-between" gap={5}>
-            <Text component="h2" fz={20} ta="left" c="var(--purple-500)" fw={600} onClick={goToMovie}>{movie.original_title}</Text>
+            <Text className="title" lineClamp={2} component="h2" fz={20} ta="left" c="var(--purple-500)" fw={600} onClick={goToMovie}>{movie.original_title}</Text>
             <Text fz={16} c="var(--gray-600)">{(movie.release_date).slice(0, 4)}</Text>
             <Group gap={0}>
               <Star color="var(--yellow)" />
@@ -46,8 +46,8 @@ export const MovieCard = ({ movie, allGenres, setSelectedMovie, rating }) => {
           </Stack>
 
           <Group wrap="no-wrap" align="" w="100%" >
-            <Text align="left" c="var(--gray-600)">Genres
-              <Text component="span" ml={8} c="#000000" >{genres}</Text>
+            <Text lineClamp={1} align="left" c="var(--gray-600)">Genres
+              <Text title={genres} component="span" ml={8} c="#000000" >{genres}</Text>
             </Text>
           </Group>
         </Stack>
@@ -63,7 +63,7 @@ export const MovieCard = ({ movie, allGenres, setSelectedMovie, rating }) => {
             color="#000000"
             onClick={() => setSelectedMovie(movie)}
           >
-            {currentRating ? currentRating : null}
+            {currentRating && currentRating}
           </Button>
         </Group>
 

@@ -12,9 +12,14 @@
   line-height: 140%;
 }
 
+.navigation-link:hover {
+  color: var(--purple-400);
+  background-color: transparent;
+}
+
 .navigation-link__active {
   color: var(--purple-500);
   font-weight: bold;
-  background-color: var(--purple-200);;
+  background-color: var(--purple-200);
   border-radius: 8px;
 }
