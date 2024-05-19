@@ -1,3 +1,31 @@
+.movie-container {
+  padding: 0px 90px;
+}
+
+.movie-container .movie-content-container {
+  align-items: stretch;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.movie-container .mantine-Breadcrumbs-root .mantine-Breadcrumbs-breadcrumb:last-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie {
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.poster-container {
+  width: 250px;
+  height: 375px;
+  gap: 0;
+  flex: 0 0 auto;
+}
+
 .poster-img {
   width: 100%;
   height: 100%;
@@ -20,4 +48,54 @@
   max-width: 500px;
   border-radius: 9px;
   border: 8px solid var(--gray-200);
+}
+
+@media (min-width: 991px) and (max-width: 1200px) {
+  .movie-container {
+    padding: 0px;
+  }
+}
+
+@media (min-width: 575px) and (max-width: 991px) {
+  .movie-container {
+    padding: 0px;
+  }
+
+  .movie-container .movie-content-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .video-container {
+    padding-top: 56.25%;
+    padding-bottom: 0px;
+  }
+}
+
+@media (max-width: 574px) {
+  .movie-container {
+    padding: 0px;
+  }
+
+  .movie-container .movie-content-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .poster-container {
+    height: 220px;
+    width: auto;
+  }
+
+  .main-movie-info .mantine-Group-root {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .video-container {
+    padding-top: 56.25%;
+    padding-bottom: 0px;
+  }
 }

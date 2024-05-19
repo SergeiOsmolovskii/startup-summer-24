@@ -6,7 +6,7 @@ import { AsideNavigation } from "./AsideNavigation";
 
 export const AsideNavigationPanel = () => {
   return (
-    <Box className="navigation-container" component="aside" mih="100vh" bg="var(--purple-100)">
+    <Box className="navigation-container" component="aside" bg="var(--purple-100)">
       <Logo className="logo" />
       <LogoMobile className="logo-mobile" />
       <AsideNavigation />

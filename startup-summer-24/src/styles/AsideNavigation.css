@@ -23,3 +23,9 @@
   background-color: var(--purple-200);
   border-radius: 8px;
 }
+
+@media (max-width: 574px) {
+  .main-navigation-list {
+    display: flex;
+  }
+}

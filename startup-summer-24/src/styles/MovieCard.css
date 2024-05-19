@@ -33,7 +33,7 @@
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 574px) {
   .movie-card {
     flex: 1 0 100%;
     max-width: 100%;

@@ -72,7 +72,9 @@ export const Movie = () => {
             fz={14}
             c="var(--purple-500)"
             href={item.href}
-            key={item.href}>
+            key={item.href}
+            title={item.title}
+          >
             {item.title}
           </Anchor>)
         );
@@ -113,12 +115,12 @@ export const Movie = () => {
         />
       </Modal>
 
-      <Box p={"0 90"} gap={20}>
+      <Box className="movie-container" gap={20}>
         <Breadcrumbs mb={20}>{crumbs}</Breadcrumbs>
-        <Card component="section" p={24} mb={20} radius={12} bg="#ffffff">
-          <Group align="stretch" justify="space-between" wrap="no-wrap">
+        <Card className="movie" component="section"radius={12} bg="#ffffff">
+          <Group className="movie-content-container">
 
-            <Group w={250} h={375} gap={0} flex="0 0 auto">
+            <Group className="poster-container">
               <Image className="poster-img" src={poster} />
             </Group>
 
@@ -133,7 +135,7 @@ export const Movie = () => {
                 </Group>
               </Stack>
 
-              <Stack gap={0} w="100%" >
+              <Stack className="main-movie-info" gap={0} w="100%" >
                 <Group pt={7}>
                   <Text w={130} p={0} c="var(--gray-600)">Duration</Text>
                   <Text p={0}>{formatTime(movie.runtime)}</Text>
