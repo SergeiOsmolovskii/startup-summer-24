@@ -25,3 +25,23 @@
   justify-content: space-between;
   width: 100%;
 }
+
+@media (min-width: 575px) and (max-width: 1200px) {
+  .movie-card {
+    flex: 1 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  .movie-card {
+    flex: 1 0 100%;
+    max-width: 100%;
+    padding: 15px !important;
+  }
+
+  .movie-card-content {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+}

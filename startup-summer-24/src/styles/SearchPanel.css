@@ -28,3 +28,9 @@
 .search-container .mantine-UnstyledButton-root:active {
   background-color: var(--purple-600);
 }
+
+@media (max-width: 991px) {
+  .search-container {
+    width: 100% !important;
+  }
+}

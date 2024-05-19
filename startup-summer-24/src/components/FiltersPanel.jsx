@@ -76,48 +76,47 @@ export const FiltersPanel = ({ setFiltersParams, setPage }) => {
   return (
 
     <Box className="filters-container" mb={24}>
-      <Group className="main-filters-container" mb={14} wrap="no-wrap">
-        <MultiSelect
-          flex={1}
-          fz={22}
-          className="genres-select"
-          label="Genres"
-          placeholder={activeGenreIds.length > 0 ? "" : "Select genre"}
-          data={genres}
-          value={activeGenreIds}
-          onChange={setActiveGenreIds}
-          maxDropdownHeight={275}
-          w="100%"
-          radius="md"
-          withCheckIcon={false}
-          rightSectionWidth={45}
-          rightSection={isGenreDropdownClosed ? <DropdownUpIcon /> : <DropdownDownIcon />}
-          onDropdownClose={() => setIsGenreDropdownClosed(false)}
-          onDropdownOpen={() => setIsGenreDropdownClosed(true)}
-          comboboxProps={{ transitionProps: { transition: 'pop', duration: 200 } }}
-        />
-
-        <Select
-          flex={1}
-          fz={22}
-          className="year-select"
-          label="Release year"
-          placeholder="Select release year"
-          data={years}
-          value={activeYear}
-          onChange={setActiveYear}
-          maxDropdownHeight={275}
-          w="100%"
-          radius="md"
-          withCheckIcon={false}
-          rightSectionWidth={45}
-          rightSection={isYearsDropdownClosed ? <DropdownUpIcon /> : <DropdownDownIcon />}
-          onDropdownClose={() => setIsYearsDropdownClosed(false)}
-          onDropdownOpen={() => setIsYearsDropdownClosed(true)}
-          comboboxProps={{ transitionProps: { transition: 'pop', duration: 200 } }}
-        />
-        {/* To fix */}
-        <Group gap={15} flex={1}>
+      <Group className="main-filters-container" wrap="no-wrap" gap={16}>
+        <Group w="100%" flex="2 1 0%" gap={16}>
+          <MultiSelect
+            flex="1 1 0%"
+            fz={22}
+            className="genres-select"
+            label="Genres"
+            placeholder={activeGenreIds.length > 0 ? "" : "Select genre"}
+            data={genres}
+            value={activeGenreIds}
+            onChange={setActiveGenreIds}
+            maxDropdownHeight={275}
+            radius="md"
+            withCheckIcon={false}
+            rightSectionWidth={45}
+            rightSection={isGenreDropdownClosed ? <DropdownUpIcon /> : <DropdownDownIcon />}
+            onDropdownClose={() => setIsGenreDropdownClosed(false)}
+            onDropdownOpen={() => setIsGenreDropdownClosed(true)}
+            comboboxProps={{ transitionProps: { transition: 'pop', duration: 200 } }}
+          />
+          <Select
+            flex="1 1 0%"
+            fz={22}
+            className="year-select"
+            label="Release year"
+            placeholder="Select release year"
+            data={years}
+            value={activeYear}
+            onChange={setActiveYear}
+            maxDropdownHeight={275}
+            w="100%"
+            radius="md"
+            withCheckIcon={false}
+            rightSectionWidth={45}
+            rightSection={isYearsDropdownClosed ? <DropdownUpIcon /> : <DropdownDownIcon />}
+            onDropdownClose={() => setIsYearsDropdownClosed(false)}
+            onDropdownOpen={() => setIsYearsDropdownClosed(true)}
+            comboboxProps={{ transitionProps: { transition: 'pop', duration: 200 } }}
+          />
+        </Group>
+        <Group className="ratings-group" gap={15} flex={1}>
           <Group className="ratings-container" wrap="no-wrap" align="flex-end">
             <NumberInput
               label="Ratings"
@@ -160,7 +159,7 @@ export const FiltersPanel = ({ setFiltersParams, setPage }) => {
             />
           </Group>
         </Group>
-        <Group className="reset-filters-container" mt={40}>
+        <Group className="reset-filters-container">
           <Button
             className="reset-filters"
             variant="transparent"
@@ -173,13 +172,11 @@ export const FiltersPanel = ({ setFiltersParams, setPage }) => {
             Reset filters
           </Button>
         </Group>
-
       </Group>
-
-      <Group justify="flex-end">
+      <Group className="sort-container" justify="flex-end">
         <Select
           fz={22}
-          className="year-select"
+          className="sort-select"
           label="Sort by"
           placeholder="Most popular"
           data={SORT_PARAMS}
@@ -195,6 +192,20 @@ export const FiltersPanel = ({ setFiltersParams, setPage }) => {
           onDropdownOpen={() => setIsSortDropdownClosed(true)}
           comboboxProps={{ transitionProps: { transition: 'pop', duration: 200 } }}
         />
+      </Group>
+
+      <Group className="reset-filters-container-mobile" display="none">
+        <Button
+          className="reset-filters"
+          variant="transparent"
+          fz={14}
+          p={0}
+          mb={5}
+          color="var(--gray-600)"
+          onClick={resetFilters}
+        >
+          Reset filters
+        </Button>
       </Group>
     </Box>
   )

@@ -1,3 +1,32 @@
+.navigation-container {
+  width: 280px;
+  padding: 24px;
+}
+
 .logo {
   margin-bottom: 73px;
+}
+
+.logo-mobile {
+  margin-bottom: 20px;
+}
+
+.logo-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navigation-container {
+    width: auto;
+    padding: 15px;
+  }
+
+  .logo
+   {
+    display: none;
+  }
+
+  .logo-mobile {
+    display: block;
+  }
 }

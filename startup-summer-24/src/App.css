@@ -2,3 +2,19 @@
   max-width: 1440px;
   margin: 0 auto;
 }
+
+.main-content {
+  padding: 40px 90px;
+}
+
+@media (min-width: 575px) and (max-width: 1200px) {
+  .main-content {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 575px) {
+  .main-content {
+    padding: 15px;
+  }
+}

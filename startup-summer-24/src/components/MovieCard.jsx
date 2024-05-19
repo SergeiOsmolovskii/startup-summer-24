@@ -1,4 +1,4 @@
-import { Card, Image, Group, Stack, Text, Title , Button } from "@mantine/core";
+import { Card, Image, Group, Stack, Text, Button } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import Star from "../assets/star.svg?react";
 import noPoster from "../assets/no-poster.png";
@@ -28,7 +28,7 @@ export const MovieCard = ({ movie, allGenres, setSelectedMovie, rating }) => {
 
   return (
     <Card className="movie-card" p={24} radius={12}>
-      <Group align="stretch" justify="space-between" wrap="no-wrap">
+      <Group className="movie-card-content" align="stretch" justify="space-between" wrap="no-wrap">
 
         <Group flex="0 0 auto">
           <Image h={170} w={119} src={poster} />
