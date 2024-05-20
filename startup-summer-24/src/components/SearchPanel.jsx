@@ -4,9 +4,19 @@ import Search from "../assets/search.svg?react";
 
 import "../styles/SearchPanel.css";
 
-export const SearchPanel = () => {
+export const SearchPanel = ({ setSearchByTitle }) => {
 
   const [search, setSearch] = useState('');
+
+  const handleSearch = () => {
+    setSearchByTitle(search);
+  };
+
+  const handleKeyUp = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
 
@@ -22,6 +32,7 @@ export const SearchPanel = () => {
         leftSection={<Search size="md" />}
         leftSectionWidth={40}
         rightSectionWidth={110}
+        onKeyUp={handleKeyUp}
         rightSection={
           <Button
             size="32px"
@@ -29,17 +40,12 @@ export const SearchPanel = () => {
             p={0}
             w={88}
             radius="md"
-            onClick={() => {
-              console.log(search);
-            }
-            }
+            onClick={handleSearch}
           >
             Search
           </Button>
         }
       />
     </Box>
-
   )
-
 }

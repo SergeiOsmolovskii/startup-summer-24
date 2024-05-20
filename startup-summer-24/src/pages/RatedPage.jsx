@@ -4,6 +4,7 @@ import { Group, Box, Text, Loader, Pagination } from "@mantine/core";
 import { SearchPanel } from "../components/SearchPanel";
 import { MoviesPanel } from "../components/MoviesPanel";
 import { EmptyRated } from "../components/EmptyRated";
+import { NotFoundMovies } from "../components/NotFoundMovies";
 
 const MOVIES_PER_RATED_PAGE = import.meta.env.VITE_MOVIES_PER_RATED_PAGE;
 
@@ -18,6 +19,7 @@ export const RatedPage = () => {
   const [startIndex, setStartIndex] = useState((page - 1) * Number(MOVIES_PER_RATED_PAGE));
   const [endIndex, setEndIndex] = useState(startIndex + Number(MOVIES_PER_RATED_PAGE));
   const [moviesOnPage, setMoviesOnPage] = useState(movies.slice(startIndex, endIndex));
+  const [searchByTitle, setSearchByTitle] = useState(null);
 
   useEffect(() => {
     const totalPages = Math.ceil(movies.length / Number(MOVIES_PER_RATED_PAGE));
@@ -37,6 +39,19 @@ export const RatedPage = () => {
   }, [movies, page]);
 
 
+  useEffect(() => {
+
+    /* Remove spaces in string and set to lowercase */
+
+    const foundMovies = searchByTitle
+      ? Object.values(rated).filter(item =>
+        item.original_title.replace(/\s+/g, "").toLowerCase()
+          .includes(searchByTitle.replace(/\s+/g, "").toLowerCase())
+      )
+      : Object.values(rated);
+    setMovies(foundMovies);
+  }, [searchByTitle]);
+
   const removeMovie = (movieId) => {
     setMovies(movies.filter(movie => movie.id !== movieId));
   };
@@ -47,27 +62,34 @@ export const RatedPage = () => {
   };
 
   return (
-    <Box component="main" h="100%">
+    <Box component="main">
 
       {
-        (movies.length < 1)
+        ((movies.length < 1 && !searchByTitle))
           ?
           <EmptyRated />
           :
           <>
             <Group display="flex" justify="space-between" mb={33}>
               <Text fz={32} fw="bold" lh="140%">Rated movies</Text>
-              <SearchPanel />
+              <SearchPanel setSearchByTitle={setSearchByTitle} />
             </Group>
 
-            <Box align="center" mb={24}  >
-              {movies ? <MoviesPanel movies={moviesOnPage} removeMovie={removeMovie} /> : <Loader size={50} color="var(--purple-500)" />}
-            </Box>
-            {movies && (
-              <Group justify="center">
-                <Pagination className="pagination" value={page} total={totalPages} onChange={handlePageChange} />
-              </Group>
-            )}
+            {movies.length < 1 && searchByTitle
+              ?
+              <NotFoundMovies />
+              :
+              <>
+                <Box align="center" mb={24}>
+                  {movies ? <MoviesPanel movies={moviesOnPage} removeMovie={removeMovie} /> : <Loader size={50} color="var(--purple-500)" />}
+                </Box>
+                {movies && (
+                  <Group justify="center">
+                    <Pagination className="pagination" value={page} total={totalPages} onChange={handlePageChange} />
+                  </Group>
+                )}
+              </>
+            }
           </>
       }
     </Box>

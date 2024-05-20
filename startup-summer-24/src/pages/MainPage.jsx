@@ -5,7 +5,8 @@ import { MoviesPanel } from "../components/MoviesPanel";
 import "../styles/MainPage.css";
 import { FiltersPanel } from "../components/FiltersPanel";
 import { getMovies } from "../api/api";
-import { NotFoundMovies } from "../components/NotFoundMovies";
+import notFoundMovies from "../assets/not-found-movies.png";
+
 
 const VITE_PAGINATION_PAGES = import.meta.env.VITE_PAGINATION_PAGES;
 
@@ -51,7 +52,7 @@ export const MainPage = () => {
       {
         ((!!movies?.results.length < 1) && searchParams.size > 1)
           ?
-          <NotFoundMovies />
+            <Image src={notFoundMovies} />
           :
           <>
             <Box align="center" mb={24}>

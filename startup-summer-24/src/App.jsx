@@ -37,7 +37,7 @@ function App() {
   return (
     <Box w="100%" className="container">
       <AsideNavigationPanel />
-      <Box className="main-content" component="aside" mih="100vh" bg="var(--gray-100)" flex={1}>
+      <Box className="main-content" component="aside" bg="var(--gray-100)" flex={1}>
         <Routes>
           <Route path="/" element={<Navigate to="/movies" />} />
           <Route path="/movies" element={<MainPage />} />

@@ -5,12 +5,14 @@
 
 .main-content {
   padding: 40px 90px;
+  min-height: 100vh;
 }
 
 @media (min-width: 575px) and (max-width: 1200px) {
   .main-content {
     padding: 30px;
   }
+
   .container {
     flex-direction: row !important;
   }
@@ -19,6 +21,7 @@
 @media (max-width: 575px) {
   .main-content {
     padding: 15px;
+    min-height: calc(100vh - 145px);
   }
 
   .container {
