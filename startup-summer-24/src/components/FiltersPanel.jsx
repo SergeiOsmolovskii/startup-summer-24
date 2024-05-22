@@ -77,7 +77,7 @@ export const FiltersPanel = ({ setFiltersParams, setPage }) => {
 
     <Box className="filters-container" mb={24}>
       <Group className="main-filters-container" wrap="no-wrap" gap={16}>
-        <Group w="100%" flex="2 1 0%" gap={16}>
+        <Group w="100%" flex="2 1 0%" gap={16} align="flex-start">
           <MultiSelect
             flex="1 1 0%"
             fz={22}

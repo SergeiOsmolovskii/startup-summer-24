@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from 'react-router-dom';
-import { Box, Group, Text, Loader, Pagination } from "@mantine/core";
+import { Box, Group, Text, Loader, Pagination, Image } from "@mantine/core";
 import { MoviesPanel } from "../components/MoviesPanel";
 import "../styles/MainPage.css";
 import { FiltersPanel } from "../components/FiltersPanel";
 import { getMovies } from "../api/api";
-import notFoundMovies from "../assets/not-found-movies.png";
-
+import { NotFoundMovies } from "../components/NotFoundMovies";
 
 const VITE_PAGINATION_PAGES = import.meta.env.VITE_PAGINATION_PAGES;
 
@@ -52,7 +51,7 @@ export const MainPage = () => {
       {
         ((!!movies?.results.length < 1) && searchParams.size > 1)
           ?
-            <Image src={notFoundMovies} />
+            <NotFoundMovies/>
           :
           <>
             <Box align="center" mb={24}>
