@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from 'react-router-dom';
-import { Box, Group, Text, Loader, Pagination, Image } from "@mantine/core";
+import { Box, Group, Text, Loader, Pagination } from "@mantine/core";
 import { MoviesPanel } from "../components/MoviesPanel";
 import "../styles/MainPage.css";
 import { FiltersPanel } from "../components/FiltersPanel";
 import { getMovies } from "../api/api";
 import { NotFoundMovies } from "../components/NotFoundMovies";
+import useDebounce from "../hooks/useDebounce";
 
 const VITE_PAGINATION_PAGES = import.meta.env.VITE_PAGINATION_PAGES;
 
@@ -13,9 +14,9 @@ export const MainPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [filtersParams, setFiltersParams] = useState(null);
-
   const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(searchParams.get("page") || 1);
+  const debouncedFiltersParams = useDebounce(filtersParams, 500);
 
   const fetchData = async () => {
     const ratings = JSON.parse(localStorage.getItem("rated")) || {};
@@ -31,7 +32,7 @@ export const MainPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [filtersParams, page]);
+  }, [debouncedFiltersParams, page]);
 
   const handlePageChange = (newPage) => {
     setPage(newPage)
@@ -51,7 +52,7 @@ export const MainPage = () => {
       {
         ((!!movies?.results.length < 1) && searchParams.size > 1)
           ?
-            <NotFoundMovies/>
+          <NotFoundMovies />
           :
           <>
             <Box align="center" mb={24}>

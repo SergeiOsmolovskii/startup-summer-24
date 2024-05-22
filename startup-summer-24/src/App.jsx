@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mantine/core";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AsideNavigationPanel } from "./components/AsideNavigationPanel";
 import { MainPage } from "./pages/MainPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
@@ -13,6 +13,7 @@ import "./App.css";
 function App() {
 
   const [genres, setGenres] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     if (!localStorage.getItem("genres")) {
@@ -34,21 +35,25 @@ function App() {
     };
   }, []);
 
+  const isNotFoundPage = location.pathname === '/404' || location.pathname === '*';
+
   return (
-    <Box w="100%" className="container">
-      <AsideNavigationPanel />
-      <Box className="main-content" component="aside" bg="var(--gray-100)" flex={1}>
-        <Routes>
-          <Route path="/" element={<Navigate to="/movies" />} />
-          <Route path="/movies" element={<MainPage />} />
-          <Route path="/rated" element={<RatedPage />} />
-          <Route path="/movies/:id" element={<Movie />} />
-          <Route path="/404" element={<NotFoundPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+    genres !== null && (
+      <Box w="100%" className="container">
+        {!isNotFoundPage && <AsideNavigationPanel />}
+        <Box className="main-content" component="aside" bg="var(--gray-100)" flex={1}>
+          <Routes>
+            <Route path="/" element={<Navigate to="/movies" />} />
+            <Route path="/movies" element={<MainPage />} />
+            <Route path="/rated" element={<RatedPage />} />
+            <Route path="/movies/:id" element={<Movie />} />
+            <Route path="/404" element={<NotFoundPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Box>
       </Box>
-    </Box>
-  )
-}
+    )
+  );
+};
 
 export default App
