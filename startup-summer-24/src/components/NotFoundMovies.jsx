@@ -10,11 +10,11 @@ export const NotFoundMovies = () => {
   };
 
   return (
-    <Flex component="main" align="center" justify="center" h="100%">
+    <Flex component="main" align="center" justify="center">
       <Stack maw={656} align="center">
         <Image src={notFoundMovies} />
         <Stack align="center">
-          <Text fz={20} fw={600}>We don't have such movies, look for another one</Text>
+          <Text fz={20} fw={600} ta="center">We don't have such movies, look for another one</Text>
         </Stack>
       </Stack>
     </Flex>

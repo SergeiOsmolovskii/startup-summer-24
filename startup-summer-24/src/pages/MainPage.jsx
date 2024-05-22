@@ -43,7 +43,7 @@ export const MainPage = () => {
   };
 
   return (
-    <Box component="main">
+    <Box component="main" h="100%">
       <Group display="flex" justify="space-between" mb={33}>
         <Text fz={32} fw="bold" lh="140%">Movies</Text>
       </Group>

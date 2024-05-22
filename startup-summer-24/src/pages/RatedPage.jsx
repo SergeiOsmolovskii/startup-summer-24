@@ -34,7 +34,7 @@ export const RatedPage = () => {
 
     if (page > totalPages) {
       setPage(1);
-      navigate(`/rated/?page=1`);
+      navigate(`/rated?page=1`);
     }
   }, [movies, page]);
 
@@ -58,11 +58,11 @@ export const RatedPage = () => {
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
-    navigate(`/rated/?page=${newPage}`);
+    navigate(`/rated?page=${newPage}`);
   };
 
   return (
-    <Box component="main">
+    <Box component="main" h="100%">
 
       {
         ((movies.length < 1 && !searchByTitle))

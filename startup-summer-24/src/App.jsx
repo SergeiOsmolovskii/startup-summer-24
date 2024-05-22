@@ -13,6 +13,7 @@ import "./App.css";
 function App() {
 
   const [genres, setGenres] = useState(null);
+  const [showAside, setShowAside] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -35,12 +36,16 @@ function App() {
     };
   }, []);
 
-  const isNotFoundPage = location.pathname === '/404' || location.pathname === '*';
+  useEffect(() => {
+    const validPaths = ["/", "/movies", "/rated"];
+    const pathWithId = location.pathname.match(/^\/movies\/\d+$/);
+    (validPaths.includes(location.pathname) || pathWithId) ? setShowAside(true) : setShowAside(false);
+  }, [location.pathname]);
 
   return (
     genres !== null && (
       <Box w="100%" className="container">
-        {!isNotFoundPage && <AsideNavigationPanel />}
+        {showAside && <AsideNavigationPanel />}
         <Box className="main-content" component="aside" bg="var(--gray-100)" flex={1}>
           <Routes>
             <Route path="/" element={<Navigate to="/movies" />} />

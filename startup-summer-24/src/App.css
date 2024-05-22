@@ -6,6 +6,9 @@
 .main-content {
   padding: 40px 90px;
   min-height: 100vh;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
 }
 
 @media (min-width: 575px) and (max-width: 1200px) {
@@ -20,8 +23,8 @@
 
 @media (max-width: 575px) {
   .main-content {
+    display: flex;
     padding: 15px;
-    min-height: calc(100vh - 145px);
   }
 
   .container {

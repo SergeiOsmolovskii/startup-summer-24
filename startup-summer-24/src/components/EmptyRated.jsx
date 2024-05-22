@@ -1,6 +1,7 @@
 import { Image, Group, Button, Flex, Stack, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import emptyRated from "../assets/empty-rated.png";
+import "../styles/EmptyRated.css";
 
 export const EmptyRated = () => {
 
@@ -15,7 +16,7 @@ export const EmptyRated = () => {
         <Image src={emptyRated} />
         <Stack align="center">
           <Text fz={20} fw={600}>You haven't rated any films yet</Text>
-          <Button bg="var(--purple-500)" onClick={goMovies}>Find movies</Button>
+          <Button className="go-movies" bg="var(--purple-500)" onClick={goMovies}>Find movies</Button>
         </Stack>
       </Stack>
     </Flex>
