@@ -40,10 +40,11 @@ export const MainPage = () => {
       searchParams.set("page", newPage);
       return searchParams;
     });
+    window.scrollTo(0, 0);
   };
 
   return (
-    <Box component="main" h="100%">
+    <Box component="main">
       <Group display="flex" justify="space-between" mb={33}>
         <Text fz={32} fw="bold" lh="140%">Movies</Text>
       </Group>
